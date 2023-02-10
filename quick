@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+void swap(int* x, int* y)
+{
+	int temp = *x;
+	*x = *y;
+	*y = temp;
+}
+int partition(int array[], int low, int high)
+{
+	int pivot = array[high];
+	int x = (low - 1);
+	for (int y = low; y <= high - 1; y++) {
+		if (array[y] < pivot) {
+			x++;
+			swap(&array[x], &array[y]);
+		}
+	}
+	swap(&array[x + 1], &array[high]);
+	return (x + 1);
+}
+void quickSort(int array[], int low, int high)
+{
+	if (low < high) {
+		int array_partition = partition(array, low, high);
+		quickSort(array, low, array_partition - 1);
+		quickSort(array, array_partition + 1, high);}}
+void printArray(int array[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		cout << array[i] << " ";
+	cout << endl;
+}
+int main()
+{
+	int array[] = { 9,4,8,3,7,1,6,2,10 ,5};
+	int size = sizeof(array) / sizeof(array[0]);
+	quickSort(array, 0, size - 1);
+
+	cout << "Sorted array quick: ";
+	printArray(array, size);
+	return 0;
+}
